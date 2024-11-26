@@ -1,11 +1,13 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useAppDispatch } from "../../redux/store";
+import { RootState, useAppDispatch } from "../../redux/store";
 import { createArticle } from "../../redux/slices/article.slice";
+import { useSelector } from "react-redux";
 
 const CreateArticle: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { loading, error } = useSelector((state: RootState) => state.articles);
 
   const formik = useFormik({
     initialValues: {
@@ -27,6 +29,7 @@ const CreateArticle: React.FC = () => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      {error && <p>Error: {error}</p>}
       <div>
         <label>Title</label>
         <input

@@ -39,6 +39,7 @@ export const createArticle = createAsyncThunk(
     try {
       const state = getState() as any;
       const token = state.auth.token;
+      articleData.author = "67432a6a91d1436624065a34";
       const response = await axios.post(
         `${API_BASE_URL}/api/articles`,
         articleData,
@@ -57,12 +58,33 @@ export const createArticle = createAsyncThunk(
   }
 );
 
+// Async thunk for deleting an article
+export const deleteArticle = createAsyncThunk(
+  "articles/deleteArticle",
+  async (id: string, { rejectWithValue, getState }) => {
+    try {
+      const state = getState() as any;
+      const token = state.auth.token;
+      await axios.delete(`${API_BASE_URL}/api/articles/id/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return id;
+    } catch (err: any) {
+      const message =
+        err.response?.data?.message || "An unexpected error occurred";
+      return rejectWithValue(message);
+    }
+  }
+);
+
 const articleSlice = createSlice({
   name: "articles",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Fetching hArticles
+    // Fetching Articles
     builder.addCase(fetchArticles.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -86,6 +108,17 @@ const articleSlice = createSlice({
       state.articles.push(action.payload);
     });
     builder.addCase(createArticle.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+
+    // Deleting Article
+    builder.addCase(deleteArticle.fulfilled, (state, action) => {
+      state.articles = state.articles.filter(
+        (article) => article._id !== action.payload
+      );
+    });
+    builder.addCase(deleteArticle.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });
