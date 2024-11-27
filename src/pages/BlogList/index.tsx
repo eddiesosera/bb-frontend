@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { deleteArticle, fetchArticles } from "../../redux/slices/article.slice";
 import { useNavigate } from "react-router-dom";
+import { ArticleCard } from "../../elements/ArticleCard";
 
 const BlogList: React.FC = () => {
   const navigate = useNavigate();
@@ -26,14 +27,7 @@ const BlogList: React.FC = () => {
     <div>
       <h2>Articles</h2>
       {articles.map((article: any) => (
-        <div key={article._id}>
-          <h3>{article.title}/</h3>
-          <p>{article.content}</p>
-          <button onClick={() => navigate(`/articles/${article.slug}`)}>
-            View
-          </button>
-          <button onClick={() => handleDelete(article._id)}>delete</button>
-        </div>
+        <ArticleCard article={article} slugUrl={`/articles/${article.slug}`} />
       ))}
     </div>
   );

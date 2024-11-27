@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { logout } from "../redux/slices/auth.slice";
+import Logo from "../assets/logo.svg";
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ const Navigation: React.FC = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-xl font-bold text-blue-600">
-              MyBlog
+              <img alt="Bearded Blog logo" src={Logo} className="h-[75px]" />
             </Link>
           </div>
 
@@ -31,7 +32,7 @@ const Navigation: React.FC = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/create"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              className="bg-[#FD5C42] w-fit text-white font-medium rounded-[12px] px-6 py-2 flex items-center gap-2 hover:bg-[#FCA192] cursor-pointer"
             >
               Create Article
             </Link>
@@ -114,7 +115,7 @@ const Navigation: React.FC = () => {
             <Link
               to="/create"
               onClick={() => setIsOpen(false)}
-              className="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium"
+              className="bg-[#FD5C42] w-fit text-white font-medium rounded-[12px] px-6 py-2 flex items-center gap-2 hover:bg-[#FCA192] cursor-pointer"
             >
               Create Article
             </Link>

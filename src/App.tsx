@@ -1,4 +1,5 @@
 import "./App.css";
+import "./styles/tailwind.css";
 import BlogList from "./pages/BlogList";
 import CreateArticle from "./pages/Article/create.article";
 import Login from "./pages/Auth/login.auth";
@@ -12,6 +13,7 @@ import Navigation from "./elements/Navbar";
 import PrivateRoute from "./util/private.route";
 import { ToastContainer } from "react-toastify";
 import Article from "./pages/Article/read.article";
+import { Footer } from "./elements/Footer";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -43,6 +45,7 @@ function App() {
           <Route path="*" element={<div>404 Not Found</div>} />
         </Routes>
       </div>
+      <Footer />
       <ToastContainer />
     </Router>
   );
