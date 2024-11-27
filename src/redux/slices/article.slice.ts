@@ -38,8 +38,8 @@ export const createArticle = createAsyncThunk(
   async (articleData: any, { rejectWithValue, getState }) => {
     try {
       const state = getState() as any;
-      const token = state.auth.token;
-      articleData.author = "67432a6a91d1436624065a34";
+      const auth = state.auth;
+      const token = auth.token;
       const response = await axios.post(
         `${API_BASE_URL}/api/articles`,
         articleData,
@@ -51,6 +51,7 @@ export const createArticle = createAsyncThunk(
       );
       return response.data;
     } catch (err: any) {
+      console.log(err);
       const message =
         err.response?.data?.message || "An unexpected error occurred";
       return rejectWithValue(message);

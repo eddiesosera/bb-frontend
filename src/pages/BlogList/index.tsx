@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { deleteArticle, fetchArticles } from "../../redux/slices/article.slice";
+import { useNavigate } from "react-router-dom";
 
 const BlogList: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { articles, loading, error } = useSelector(
     (state: RootState) => state.articles
@@ -27,6 +29,9 @@ const BlogList: React.FC = () => {
         <div key={article._id}>
           <h3>{article.title}/</h3>
           <p>{article.content}</p>
+          <button onClick={() => navigate(`/articles/${article.slug}`)}>
+            View
+          </button>
           <button onClick={() => handleDelete(article._id)}>delete</button>
         </div>
       ))}

@@ -5,6 +5,7 @@ import "./styles/tailwind.css";
 import App from "./App.tsx";
 import { Provider } from "react-redux";
 import store from "./redux/store.ts";
+import "react-toastify/dist/ReactToastify.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

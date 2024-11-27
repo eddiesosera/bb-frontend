@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const CreateArticle: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { loading, error } = useSelector((state: RootState) => state.articles);
+  const { error } = useSelector((state: RootState) => state.articles);
 
   const formik = useFormik({
     initialValues: {
@@ -23,6 +23,7 @@ const CreateArticle: React.FC = () => {
       imageCover: Yup.string().url("Must be a valid URL"),
     }),
     onSubmit: (values) => {
+      console.log(values);
       dispatch(createArticle(values));
     },
   });
@@ -66,7 +67,9 @@ const CreateArticle: React.FC = () => {
         />
         {formik.errors.imageCover && <div>{formik.errors.imageCover}</div>}
       </div>
-      <button type="submit">Create Article</button>
+      <button type="submit" onClick={formik.submitForm}>
+        Create Article
+      </button>
     </form>
   );
 };
